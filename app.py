@@ -372,9 +372,11 @@ def generer_pdf(nom, reponses, scores, acteurs):
 
 @app.route("/")
 def index():
-    exemples = load("examples.json").get("exemples", [])
+    try:
+        exemples = load("examples.json").get("exemples", [])
+    except (FileNotFoundError, KeyError, ValueError):
+        exemples = []
     return render_template("index.html", exemples=exemples)
-
 
 @app.route("/questionnaire", methods=["GET", "POST"])
 def questionnaire():
@@ -449,40 +451,10 @@ def charger_exemple(ex_id):
     return redirect(url_for("resultats"))
 
 
-# ==============================================================================
-# Vérifications sécurité au démarrage
-# ==============================================================================
-
-def check_isolation():
-    try:
-        s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        s.settimeout(0.5)
-        if s.connect_ex(("0.0.0.0", 5000)) == 0:
-            print("[SECURITE] Port 5000 déjà exposé — arrêt.")
-            raise SystemExit(1)
-        s.close()
-    except OSError:
-        pass
-
-
-def check_internet():
-    try:
-        s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        s.settimeout(1)
-        s.connect(("8.8.8.8", 53))
-        s.close()
-        print("[INFO] Internet accessible — l'outil ne fait aucune requête sortante.")
-    except OSError:
-        print("[INFO] Pas d'accès internet — isolation réseau confirmée.")
-
-
 if __name__ == "__main__":
     print("=" * 50)
     print("  THREAT ASSESSMENT — ENTREPRISE")
     print("=" * 50)
-
-    check_isolation()
-    check_internet()
 
     HOST = "127.0.0.1"
     PORT = 5000

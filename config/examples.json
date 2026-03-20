@@ -1,0 +1,48 @@
+{
+  "exemples": [
+    {
+      "id": "pme_locale",
+      "nom": "PME de services locaux — 15 salariés",
+      "description": "Entreprise de services locaux, pas d'interconnexion externe, activité non numérique critique",
+      "reponses": {
+        "sa_connectivite":          2,
+        "sa_si_critique":           1,
+        "sa_tiers":                 2,
+        "sa_duree":                 4,
+        "val_donnees":              2,
+        "val_criticite_metier":     1,
+        "val_personnels_cibles":    1,
+        "val_interconnexions":      1,
+        "val_visibilite":           1,
+        "val_conformite":           1,
+        "val_exposition_publique":  1,
+        "ctx_secteur":              1,
+        "ctx_geopolitique":         1,
+        "ctx_historique_incidents": 1,
+        "ctx_capacites_adversaires":2
+      }
+    },
+    {
+      "id": "esn_critique",
+      "nom": "ESN — fournisseur IT de secteurs critiques",
+      "description": "Entreprise de services numériques, accès privilégiés chez ses clients, secteur tech fortement ciblé",
+      "reponses": {
+        "sa_connectivite":          4,
+        "sa_si_critique":           3,
+        "sa_tiers":                 4,
+        "sa_duree":                 4,
+        "val_donnees":              3,
+        "val_criticite_metier":     3,
+        "val_personnels_cibles":    3,
+        "val_interconnexions":      4,
+        "val_visibilite":           3,
+        "val_conformite":           3,
+        "val_exposition_publique":  2,
+        "ctx_secteur":              3,
+        "ctx_geopolitique":         2,
+        "ctx_historique_incidents": 3,
+        "ctx_capacites_adversaires":3
+      }
+    }
+  ]
+}
