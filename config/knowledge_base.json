@@ -1,0 +1,83 @@
+{
+  "_comment": "Base CTI entreprise. Mettre à jour selon veille ANSSI / CERT-FR / Recorded Future.",
+
+  "acteurs": {
+    "LockBit": {
+      "nom_complet": "LockBit 3.0",
+      "origine": "Cybercriminel — affiliés internationaux",
+      "tier": 1,
+      "type": "ransomware",
+      "finalites": ["sabotage", "vol_donnees"],
+      "secteurs_cibles": ["santé", "industrie", "logistique", "finance", "PME"],
+      "ttps_labels": ["Phishing", "Exploitation VPN", "Double extorsion", "Lateral movement"],
+      "incidents_notables": ["Hôpital de Corbeil-Essonnes 2022", "Boeing 2023", "Royal Mail 2023"],
+      "actif": true
+    },
+    "Cl0p": {
+      "nom_complet": "Cl0p Ransomware Gang",
+      "origine": "Cybercriminel — probable Russie/Ukraine",
+      "tier": 1,
+      "type": "ransomware",
+      "finalites": ["sabotage", "vol_donnees"],
+      "secteurs_cibles": ["finance", "santé", "énergie", "tech"],
+      "ttps_labels": ["Exploitation zero-day", "MOVEit/GoAnywhere", "Double extorsion"],
+      "incidents_notables": ["MOVEit campaign 2023 — 2500 org.", "GoAnywhere 2023"],
+      "actif": true
+    },
+    "BlackCat": {
+      "nom_complet": "BlackCat / ALPHV",
+      "origine": "Cybercriminel — ex-membres REvil",
+      "tier": 1,
+      "type": "ransomware",
+      "finalites": ["sabotage", "vol_donnees"],
+      "secteurs_cibles": ["santé", "énergie", "finance", "tech"],
+      "ttps_labels": ["Ransomware Rust", "Triple extorsion", "Exfiltration avant chiffrement"],
+      "incidents_notables": ["Change Healthcare 2024", "MGM Resorts 2023"],
+      "actif": true
+    },
+    "APT10": {
+      "nom_complet": "APT10 / Stone Panda — espionnage industriel",
+      "origine": "Chine — MSS",
+      "tier": 1,
+      "type": "apt",
+      "finalites": ["vol_donnees"],
+      "secteurs_cibles": ["défense", "aérospatial", "tech", "R&D", "énergie"],
+      "ttps_labels": ["Spear-phishing", "Supply chain", "Exfiltration longue durée"],
+      "incidents_notables": ["Cloud Hopper 2017", "MBDA/Thales 2022"],
+      "actif": true
+    },
+    "APT28": {
+      "nom_complet": "APT28 / Fancy Bear — sabotage et déstabilisation",
+      "origine": "Russie — GRU",
+      "tier": 1,
+      "type": "apt",
+      "finalites": ["vol_donnees", "sabotage", "reputation"],
+      "secteurs_cibles": ["énergie", "défense", "gouvernement", "médias", "tech"],
+      "ttps_labels": ["Spear-phishing", "Exploitation applicative", "Wiper", "Leak & Amplify"],
+      "incidents_notables": ["TV5Monde 2015", "En Marche 2017", "Sony Pictures 2014"],
+      "actif": true
+    },
+    "Sandworm": {
+      "nom_complet": "Sandworm / Voodoo Bear — sabotage infrastructure",
+      "origine": "Russie — GRU",
+      "tier": 1,
+      "type": "apt",
+      "finalites": ["sabotage"],
+      "secteurs_cibles": ["énergie", "industrie", "télécoms", "transport"],
+      "ttps_labels": ["Wiper NotPetya", "Exploitation OT/SCADA", "Supply chain"],
+      "incidents_notables": ["NotPetya 2017", "Viasat 2022", "Blackout Ukraine 2022"],
+      "actif": true
+    },
+    "KillNet": {
+      "nom_complet": "KillNet — hacktivisme pro-russe",
+      "origine": "Russie — hacktivistes pro-Kremlin",
+      "tier": 2,
+      "type": "hacktiviste",
+      "finalites": ["sabotage", "reputation"],
+      "secteurs_cibles": ["santé", "gouvernement", "finance", "logistique", "médias"],
+      "ttps_labels": ["DDoS massif", "Défacement", "Campagne coordonnée Telegram"],
+      "incidents_notables": ["Hôpitaux européens 2022-2023", "Aéroports US 2022"],
+      "actif": true
+    }
+  }
+}

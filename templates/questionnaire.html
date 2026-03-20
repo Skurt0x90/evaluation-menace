@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Questionnaire — {{ nom }}</title>
+<link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+<div class="container">
+
+  <div class="page-header">
+    <div>
+      <div class="label">Questionnaire — Méthode S/E/I Entreprise</div>
+      <h1>Appréciation de la Menace Cyber</h1>
+      <div class="meta">{{ nom }}</div>
+    </div>
+  </div>
+
+  <div class="progress-wrap"><div class="progress-bar" id="progress"></div></div>
+
+  <form action="/questionnaire" method="post" id="form">
+    <input type="hidden" name="nom_deploiement" value="{{ nom }}">
+
+    {% for bloc in blocs %}
+    <div class="bloc bloc-{{ bloc.id }}">
+      <div class="bloc-header">
+        <span class="bloc-id">{{ bloc.id }}</span>
+        <span class="bloc-title">{{ bloc.titre }}</span>
+        <span class="bloc-desc">{{ bloc.description }}</span>
+      </div>
+
+      {% for q in bloc.questions %}
+      <div class="question-card" id="card_{{ q.id }}">
+        <div class="q-text">{{ q.texte }}</div>
+        <div class="q-aide">{{ q.aide }}</div>
+        <div class="options">
+          {% for opt in q.options %}
+          <label class="option-label" id="opt_{{ q.id }}_{{ opt.valeur }}">
+            <input type="radio" name="{{ q.id }}" value="{{ opt.valeur }}"
+                   onchange="pick('{{ q.id }}', {{ opt.valeur }})">
+            <span class="lv-num lv{{ opt.valeur }}">{{ opt.valeur }}</span>
+            <span>{{ opt.label }}</span>
+          </label>
+          {% endfor %}
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+    {% endfor %}
+
+    <div style="height:72px"></div>
+    <div class="submit-bar">
+      <a href="/" class="btn btn-ghost">← Retour</a>
+      <button type="submit" class="btn btn-primary">Calculer →</button>
+    </div>
+  </form>
+
+</div>
+<script>
+function pick(qId, val) {
+  document.querySelectorAll('[id^="opt_' + qId + '_"]').forEach(l => l.classList.remove('selected'));
+  document.getElementById('opt_' + qId + '_' + val).classList.add('selected');
+  updateProgress();
+}
+
+function updateProgress() {
+  const names = [...new Set([...document.querySelectorAll('input[type=radio]')].map(r => r.name))];
+  const done  = new Set([...document.querySelectorAll('input[type=radio]:checked')].map(r => r.name)).size;
+  document.getElementById('progress').style.width = (done / names.length * 100) + '%';
+}
+
+document.getElementById('form').addEventListener('submit', function(e) {
+  const names     = [...new Set([...document.querySelectorAll('input[type=radio]')].map(r => r.name))];
+  const missing   = names.filter(n => !document.querySelector('input[name="' + n + '"]:checked'));
+  if (missing.length) {
+    e.preventDefault();
+    alert(missing.length + ' question(s) sans réponse.');
+    document.getElementById('card_' + missing[0]).scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }
+});
+</script>
+</body>
+</html>

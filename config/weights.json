@@ -1,0 +1,15 @@
+{
+  "surface": {
+    "sa_connectivite":  0.45,
+    "sa_si_critique":   0.30,
+    "sa_tiers":         0.15,
+    "sa_duree":         0.10
+  },
+
+  "contexte": {
+    "ctx_secteur":               0.30,
+    "ctx_geopolitique":          0.20,
+    "ctx_historique_incidents":  0.30,
+    "ctx_capacites_adversaires": 0.20
+  }
+}

@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Résultats — {{ nom }}</title>
+<link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+<div class="container">
+
+  <!-- En-tête -->
+  <div class="page-header">
+    <div>
+      <div class="label">Rapport d'analyse — Méthode S/E/I Entreprise</div>
+      <h1>{{ nom }}</h1>
+      <div class="meta">{{ date }}</div>
+    </div>
+    <a href="/telecharger_pdf" class="btn btn-primary">⬇ PDF</a>
+  </div>
+
+  <!-- Formule -->
+  <div class="formula-strip">
+    <div class="f-block">
+      <div class="f-val c4">{{ "%.2f"|format(scores._mult_surface) }}</div>
+      <div class="f-lbl">Surface</div>
+    </div>
+    <span class="f-op">×</span>
+    <div class="f-block">
+      <div class="f-val" style="color:var(--accent)">valeur axe</div>
+      <div class="f-lbl">ci-dessous</div>
+    </div>
+    <span class="f-op">×</span>
+    <div class="f-block">
+      <div class="f-val" style="color:#7c3aed">{{ "%.2f"|format(scores._mult_contexte) }}</div>
+      <div class="f-lbl">Contexte</div>
+    </div>
+    <span class="f-op">×</span>
+    <div class="f-block">
+      <div class="f-val" style="color:#059669">{{ "%.2f"|format(scores._reducteur_maturite) }}</div>
+      <div class="f-lbl">Maturité (D)</div>
+    </div>
+    <span class="f-op">=</span>
+    <div class="f-block">
+      <div class="f-val c{{ scores.global.niveau }}">{{ scores.global.label }}</div>
+      <div class="f-lbl">Risque résiduel</div>
+    </div>
+  </div>
+
+  <!-- Niveau global brut vs résiduel -->
+  {% set n = scores.global.niveau %}
+  {% set nb = scores.global.niveau_brut %}
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:20px">
+    <div class="global-box" style="background:var(--lv{{ nb }}-bg);border-color:var(--lv{{ nb }})">
+      <div>
+        <div class="global-label">Menace brute</div>
+        <div class="global-value c{{ nb }}">{{ scores.global.label_brut }}</div>
+        <div style="font-size:11px;color:var(--muted);margin-top:3px">avant mesures de sécurité</div>
+      </div>
+      <div class="global-num c{{ nb }}">{{ nb }}/4</div>
+    </div>
+    <div class="global-box bg{{ n }}">
+      <div>
+        <div class="global-label">Risque résiduel</div>
+        <div class="global-value c{{ n }}">{{ scores.global.label }}</div>
+        <div style="font-size:11px;color:var(--muted);margin-top:3px">après mesures — niveau réel</div>
+      </div>
+      <div class="global-num c{{ n }}">{{ n }}/4</div>
+    </div>
+  </div>
+
+  <!-- Axes -->
+  <div class="axes-grid">
+    {% for axe_id, info in axes.items() %}
+    {% set s = scores[axe_id] %}
+    {% set nv = s.niveau %}
+    {% set nb = s.niveau_brut %}
+    <div class="axe-card c{{ nv }}" style="border-top-color:currentColor">
+      <div class="axe-name">{{ info.emoji }} {{ info.label }}</div>
+      <div style="display:flex;align-items:baseline;gap:8px;margin-bottom:2px">
+        <div class="axe-score c{{ nv }}">{{ s.score }}</div>
+        {% if nb != nv %}
+        <div style="font-size:11px;color:var(--muted);text-decoration:line-through">{{ s.score_brut }}</div>
+        {% endif %}
+      </div>
+      <div class="axe-label c{{ nv }}">{{ s.label }}
+        {% if nb != nv %}<span style="color:var(--muted);font-weight:normal"> ← {{ s.label_brut }}</span>{% endif %}
+      </div>
+      <div class="axe-decomp" style="margin-top:6px">brut {{ s.score_brut }} × {{ "%.2f"|format(scores._reducteur_maturite) }} = {{ s.score }}</div>
+      <div class="axe-bar-bg">
+        <div class="axe-bar-fill c{{ nv }}" style="width:{{ (((s.score-1)/3)*100)|round }}%;background:currentColor"></div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+
+  <!-- Acteurs pertinents -->
+  {% if acteurs %}
+  <div class="label" style="margin-bottom:10px;margin-top:24px">Acteurs de la menace pertinents</div>
+  <div class="acteur-table-hdr">
+    <span>Acteur</span><span>Origine / Type</span><span>Finalités</span><span>TTPs principaux</span>
+  </div>
+  {% for a in acteurs %}
+  <div class="acteur-row">
+    <span class="acteur-code">{{ a.code }}</span>
+    <span class="acteur-muted">{{ a.origine }}</span>
+    <span>{{ a.finalites_matchees | join(", ") }}</span>
+    <span class="acteur-muted">{{ a.ttps_labels[:3] | join(" · ") }}</span>
+  </div>
+  {% endfor %}
+  {% endif %}
+
+  <!-- Détails réponses -->
+  <div class="label" style="margin-bottom:10px;margin-top:24px">Détail des réponses</div>
+
+  {% set cur = namespace(bloc="") %}
+  {% for d in details %}
+    {% if d.bloc_id != cur.bloc %}
+      {% if cur.bloc != "" %}</div></div>{% endif %}
+      {% set cur.bloc = d.bloc_id %}
+      <div class="collapse-block">
+        <div class="collapse-hdr" onclick="toggle(this)">
+          <span class="collapse-title">Bloc {{ d.bloc_id }} — {{ d.bloc_titre }}</span>
+          <i class="chevron">›</i>
+        </div>
+        <div class="collapse-body">
+    {% endif %}
+    <div class="detail-row">
+      <div class="lv-badge c{{ d.valeur }}">{{ d.valeur }}</div>
+      <div>
+        <div class="detail-q">{{ d.texte }}</div>
+        <div class="detail-a">{{ d.label }}</div>
+      </div>
+    </div>
+  {% endfor %}
+  </div></div>
+
+  <!-- Limites -->
+  <div class="limites">
+    <div class="limites-title">Limites de l'analyse</div>
+    <ul>
+      <li>Appréciation de vraisemblance uniquement — ne couvre pas l'impact financier ni le risque résiduel.</li>
+      <li>Le multiplicateur surface suppose que les réponses reflètent l'exposition réelle du SI.</li>
+      <li>Ne remplace pas un audit de sécurité, une analyse de risque ISO 27005, ou un test d'intrusion.</li>
+      <li>Les acteurs sont issus de knowledge_base.json — à mettre à jour selon la veille CTI.</li>
+    </ul>
+  </div>
+
+  <!-- Actions -->
+  <div class="actions">
+    <a href="/" class="btn btn-outline">← Nouvelle analyse</a>
+    <a href="/questionnaire?nom={{ nom }}" class="btn btn-ghost">↩ Modifier</a>
+    <a href="/telecharger_pdf" class="btn btn-primary">⬇ Rapport PDF</a>
+  </div>
+
+</div>
+<script>
+function toggle(hdr) {
+  const body = hdr.nextElementSibling;
+  const chev = hdr.querySelector('.chevron');
+  body.classList.toggle('open');
+  chev.classList.toggle('open');
+}
+document.addEventListener('DOMContentLoaded', () => {
+  const first = document.querySelector('.collapse-body');
+  const chev  = document.querySelector('.chevron');
+  if (first) { first.classList.add('open'); chev.classList.add('open'); }
+});
+</script>
+</body>
+</html>

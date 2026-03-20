@@ -1,0 +1,26 @@
+{
+  "axes": {
+    "vol_donnees":  {"label": "Vol de données",  "emoji": "🔍"},
+    "sabotage":     {"label": "Sabotage",         "emoji": "⚡"},
+    "reputation":   {"label": "Réputation",       "emoji": "📡"}
+  },
+
+  "niveaux": {
+    "1": {"label": "FAIBLE",    "couleur": "#16a34a", "seuil_max": 1.75},
+    "2": {"label": "MODÉRÉ",   "couleur": "#d97706", "seuil_max": 2.50},
+    "3": {"label": "ÉLEVÉ",    "couleur": "#ea580c", "seuil_max": 3.25},
+    "4": {"label": "CRITIQUE", "couleur": "#dc2626", "seuil_max": 9.99}
+  },
+
+  "multiplicateur_surface":  {"min": 0.10, "max": 1.00},
+  "multiplicateur_contexte": {"min": 0.80, "max": 1.20},
+
+  "reducteur_maturite": {
+    "_comment": "Le Bloc D produit un réducteur [min–max] appliqué au score brut pour obtenir le risque résiduel. Maturité max = réduction max. Inspiré ISO 27005 section 9 (traitement du risque).",
+    "min": 0.55,
+    "max": 1.00
+  },
+
+  "score_final":         {"min": 1.0, "max": 4.0},
+  "agregation_globale":  {"methode": "max"}
+}

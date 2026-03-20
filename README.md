@@ -1,4 +1,4 @@
-# Cyber Threat Assessment
+# VEKTOR
 
 Outil d'appréciation rapide de la menace cyber basé sur une méthode multiplicative à trois blocs. Axes Vol de données / Sabotage / Réputation.
 
@@ -54,7 +54,7 @@ threat-assessment/
 git clone https://github.com/votre-username/threat-assessment
 cd threat-assessment
 
-pip install flask reportlab
+pip install -r requirements.txt
 
 python app.py
 ```

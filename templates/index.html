@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Threat Assessment — Entreprise</title>
+<link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+<div style="min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px">
+<div class="card" style="width:520px">
+
+  <div class="label" style="margin-bottom:16px">Cyber Threat Assessment — Entreprise</div>
+  <h1 style="font-size:22px;font-weight:normal;margin-bottom:6px">Appréciation de la Menace Cyber</h1>
+  <p style="font-size:13px;color:var(--muted);margin-bottom:22px;font-style:italic;line-height:1.6">
+    Méthode multiplicative — Vol de données · Sabotage · Réputation
+  </p>
+
+  <div class="info-box">
+    Score = Valeur_cible × Mult_surface × Mult_contexte<br>
+    Tout est configurable dans config/ sans modifier le code.
+  </div>
+
+  <form action="/questionnaire" method="get">
+    <label class="field-label">Entreprise / périmètre analysé</label>
+    <input type="text" name="nom" placeholder="ex : ESN Groupe Alpha — SI interne" required
+           style="margin-bottom:14px">
+    <button type="submit" class="btn btn-primary btn-block">→ Démarrer l'analyse</button>
+  </form>
+
+  {% if exemples %}
+  <hr class="divider">
+  <div class="label" style="margin-bottom:8px">Exemples préconfigurés</div>
+  <div class="example-list">
+    {% for ex in exemples %}
+    <a href="/exemple/{{ ex.id }}" class="example-btn">
+      <span style="color:var(--accent);font-family:var(--mono)">▸</span>
+      <div>
+        <div class="example-name">{{ ex.nom }}</div>
+        <div class="example-desc">{{ ex.description }}</div>
+      </div>
+    </a>
+    {% endfor %}
+  </div>
+  {% endif %}
+
+  <p class="hint">15 questions · ~6 min · export PDF</p>
+</div>
+</div>
+</body>
+</html>
