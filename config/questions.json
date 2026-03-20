@@ -1,54 +1,52 @@
 {
-  "_comment": "Questions du questionnaire entreprise. 4 blocs : A=surface, B=valeur cible, C=contexte, D=maturité (réducteur de risque ISO 27005).",
-
   "blocs": [
     {
       "id": "A",
       "titre": "Surface d'attaque",
-      "description": "Gate keeper — est-ce qu'une attaque cyber est factuellement possible ?",
+      "description": "Est-ce qu'une attaque cyber est concrètement possible sur ce périmètre ?",
       "questions": [
         {
           "id": "sa_connectivite",
-          "texte": "Quel est le niveau d'exposition réseau du périmètre analysé ?",
-          "aide": "Accès internet direct, exposition de services, présence cloud, accès distant.",
+          "texte": "Comment le périmètre est-il connecté à l'extérieur ?",
+          "aide": "Internet, cloud, VPN, accès partenaires... Tout ce qui sort du réseau interne.",
           "options": [
-            {"valeur": 1, "label": "Système isolé, aucun accès externe, réseau interne cloisonné"},
-            {"valeur": 2, "label": "Accès distant contrôlé (VPN), services internes non exposés"},
-            {"valeur": 3, "label": "Présence cloud partielle, quelques services exposés sur internet"},
-            {"valeur": 4, "label": "Fortement exposé : services publics, cloud non maîtrisé, accès tiers nombreux"}
+            {"valeur": 1, "label": "Isolé - pas de connexion externe, tout en interne"},
+            {"valeur": 2, "label": "VPN en interne uniquement, rien d'exposé sur internet"},
+            {"valeur": 3, "label": "Quelques services cloud ou exposés, globalement maîtrisé"},
+            {"valeur": 4, "label": "Très exposé - services publics, cloud peu maîtrisé, multiples accès tiers"}
           ]
         },
         {
           "id": "sa_si_critique",
-          "texte": "Quels systèmes critiques sont présents dans le périmètre ?",
-          "aide": "ERP, SCADA/OT, bases de données clients, systèmes de paiement, infrastructure critique.",
+          "texte": "Quels types de systèmes sont dans le périmètre ?",
+          "aide": "ERP, SCADA, bases clients, paiement... Est-ce que toucher ces systèmes ferait vraiment mal ?",
           "options": [
-            {"valeur": 1, "label": "Aucun système critique, postes bureautique standard uniquement"},
-            {"valeur": 2, "label": "Systèmes internes (ERP, messagerie) sans connexion externe directe"},
-            {"valeur": 3, "label": "Systèmes critiques présents (ERP, BDD clients) avec accès externes contrôlés"},
-            {"valeur": 4, "label": "Systèmes industriels OT/SCADA, paiement, ou infrastructure critique exposés"}
+            {"valeur": 1, "label": "Postes bureautique standard, rien de critique"},
+            {"valeur": 2, "label": "ERP ou messagerie en interne, pas connectés directement à l'extérieur"},
+            {"valeur": 3, "label": "Des systèmes sensibles (ERP, BDD clients) avec quelques accès externes"},
+            {"valeur": 4, "label": "SCADA, systèmes de paiement ou infra critique et accessibles"}
           ]
         },
         {
           "id": "sa_tiers",
-          "texte": "Quel est le niveau de dépendance à des tiers (fournisseurs, sous-traitants, cloud) ?",
-          "aide": "MSP, prestataires IT, SaaS critiques, interconnexions supply chain.",
+          "texte": "Des prestataires ou fournisseurs ont-ils accès au SI ?",
+          "aide": "MSP, infogérance, SaaS métier... Tout accès externe géré par quelqu'un d'autre.",
           "options": [
-            {"valeur": 1, "label": "Aucun tiers avec accès au SI, tout en interne"},
-            {"valeur": 2, "label": "Quelques SaaS secondaires, pas d'accès tiers au SI interne"},
-            {"valeur": 3, "label": "Prestataires IT avec accès limités, SaaS critiques utilisés"},
-            {"valeur": 4, "label": "MSP avec accès privilégiés, supply chain fortement interconnectée"}
+            {"valeur": 1, "label": "Tout est géré en interne - pas d'accès externes"},
+            {"valeur": 2, "label": "Quelques SaaS mineurs, pas d'accès tiers au SI interne"},
+            {"valeur": 3, "label": "Prestataires IT ont des accès, des SaaS critiques sont utilisés"},
+            {"valeur": 4, "label": "Un MSP gère une partie du SI, beaucoup d'interconnexions supply chain"}
           ]
         },
         {
           "id": "sa_duree",
-          "texte": "Sur quelle durée porte l'analyse (période d'exposition) ?",
-          "aide": "La durée d'exposition détermine la fenêtre d'opportunité pour un attaquant.",
+          "texte": "Sur quelle durée porte cette analyse ?",
+          "aide": "Plus c'est long, plus un attaquant a le temps de s'installer discrètement.",
           "options": [
-            {"valeur": 1, "label": "Opération ponctuelle de moins d'une semaine"},
-            {"valeur": 2, "label": "Projet court terme, 1 à 4 semaines"},
-            {"valeur": 3, "label": "Exposition continue sur 1 à 6 mois"},
-            {"valeur": 4, "label": "Exposition permanente, activité courante de l'entreprise"}
+            {"valeur": 1, "label": "Une opération ponctuelle, moins d'une semaine"},
+            {"valeur": 2, "label": "Un projet court, quelques semaines"},
+            {"valeur": 3, "label": "Plusieurs mois d'exposition"},
+            {"valeur": 4, "label": "C'est le fonctionnement permanent de l'entreprise"}
           ]
         }
       ]
@@ -57,90 +55,90 @@
     {
       "id": "B",
       "titre": "Valeur de la cible",
-      "description": "Attractivité pour un adversaire selon les trois finalités — Vol de données, Sabotage, Réputation",
+      "description": "Pourquoi un attaquant s'intéresserait à ce périmètre ? (Vol de données, Sabotage, Réputation)",
       "questions": [
         {
           "id": "val_donnees",
-          "texte": "Quelle est la sensibilité des données traitées dans le périmètre ?",
-          "aide": "Secrets commerciaux, données personnelles, données financières, propriété intellectuelle.",
+          "texte": "Quel est le niveau de sensibilité des données traitées ?",
+          "aide": "Secrets commerciaux, données perso, brevets, infos financières... Ce qu'on ne voudrait pas voir fuiter.",
           "axe_poids": {"vol_donnees": 1.0, "sabotage": 0.3, "reputation": 0.4},
           "options": [
-            {"valeur": 1, "label": "Données publiques ou internes sans valeur particulière"},
-            {"valeur": 2, "label": "Données clients ou RH — sensibles mais non stratégiques"},
-            {"valeur": 3, "label": "Propriété intellectuelle, données financières, secrets commerciaux"},
-            {"valeur": 4, "label": "Données hautement stratégiques : R&D, brevets, données de marché critiques"}
+            {"valeur": 1, "label": "Rien de particulier - données internes sans grande valeur"},
+            {"valeur": 2, "label": "Des données clients ou RH, sensibles mais pas stratégiques"},
+            {"valeur": 3, "label": "Propriété intellectuelle, données financières ou secrets commerciaux"},
+            {"valeur": 4, "label": "R&D, brevets, données vraiment stratégiques"}
           ]
         },
         {
           "id": "val_criticite_metier",
-          "texte": "Quel est l'impact d'une interruption du périmètre sur l'activité ?",
-          "aide": "Perte de revenus, incapacité opérationnelle, rupture de service client.",
+          "texte": "Impact en cas en panne / perte des services ?",
+          "aide": "Ransomware, panne technique... Quel serait l'impact réel sur l'activité ?",
           "axe_poids": {"vol_donnees": 0.2, "sabotage": 1.0, "reputation": 0.5},
           "options": [
-            {"valeur": 1, "label": "Impact nul — activité non numérique ou facilement contournée"},
-            {"valeur": 2, "label": "Impact limité — ralentissement mais continuité possible"},
-            {"valeur": 3, "label": "Impact significatif — arrêt partiel, perte financière mesurable"},
-            {"valeur": 4, "label": "Impact critique — arrêt total, mise en danger de l'entreprise"}
+            {"valeur": 1, "label": "Rien - l'activité peut continuer sans ce système"},
+            {"valeur": 2, "label": "Un ralentissement, mais sans impact grave"},
+            {"valeur": 3, "label": "Arrêt partiel, perte financière réelle"},
+            {"valeur": 4, "label": "Arrêt complet - l'entreprise ne peut plus fonctionner"}
           ]
         },
         {
           "id": "val_personnels_cibles",
-          "texte": "Y a-t-il des profils à haute valeur dans le périmètre ?",
-          "aide": "C-level, administrateurs système, accès privilégiés, experts stratégiques.",
+          "texte": "Y a-t-il des profils intéressants pour un attaquant dans le périmètre ?",
+          "aide": "Dirigeants, admins système, accès privilégiés... Des comptes qui donnent accès à tout.",
           "axe_poids": {"vol_donnees": 0.8, "sabotage": 0.4, "reputation": 0.5},
           "options": [
-            {"valeur": 1, "label": "Employés standards, aucun accès privilégié particulier"},
-            {"valeur": 2, "label": "Managers intermédiaires, quelques accès sensibles"},
-            {"valeur": 3, "label": "Administrateurs IT, direction opérationnelle, accès SI critiques"},
-            {"valeur": 4, "label": "C-level, DSI, accès à tous les systèmes, comptes avec droits étendus"}
+            {"valeur": 1, "label": "Non - des employés standard sans accès particuliers"},
+            {"valeur": 2, "label": "Quelques managers avec des accès un peu plus larges"},
+            {"valeur": 3, "label": "Des admins IT ou des membres de la direction avec accès aux systèmes critiques"},
+            {"valeur": 4, "label": "C-level, DSI, comptes avec accès à tout"}
           ]
         },
         {
           "id": "val_interconnexions",
-          "texte": "Le périmètre est-il interconnecté avec des partenaires ou des clients stratégiques ?",
-          "aide": "Accès croisés, API partagées, réseaux communs, effet rebond potentiel.",
+          "texte": "Le périmètre est-il connecté à des partenaires ou clients importants ?",
+          "aide": "API partagées, accès croisés, réseaux communs... Compromettre ce périmètre pourrait toucher d'autres entreprises ?",
           "axe_poids": {"vol_donnees": 0.7, "sabotage": 0.6, "reputation": 0.4},
           "options": [
-            {"valeur": 1, "label": "Aucune interconnexion avec l'extérieur"},
-            {"valeur": 2, "label": "Échanges de données non temps réel avec partenaires de confiance"},
-            {"valeur": 3, "label": "API ou accès partagés avec partenaires ou clients stratégiques"},
-            {"valeur": 4, "label": "Nœud central d'une supply chain — compromission = effet rebond massif"}
+            {"valeur": 1, "label": "Non - pas d'interconnexion avec l'extérieur"},
+            {"valeur": 2, "label": "Quelques échanges de fichiers avec des partenaires de confiance"},
+            {"valeur": 3, "label": "Des API ou accès partagés avec des clients ou partenaires stratégiques"},
+            {"valeur": 4, "label": "On est au centre d'une supply chain"}
           ]
         },
         {
           "id": "val_visibilite",
-          "texte": "Quelle est la visibilité publique de l'entreprise ou de cette activité ?",
-          "aide": "Médiatisation, cotation boursière, positionnement sectoriel, notoriété.",
+          "texte": "L'entreprise est-elle connue du grand public ?",
+          "aide": "Notoriété, presse, cotation boursière... Une attaque ferait-elle du bruit médiatique ?",
           "axe_poids": {"vol_donnees": 0.2, "sabotage": 0.2, "reputation": 1.0},
           "options": [
-            {"valeur": 1, "label": "PME discrète, aucune notoriété publique particulière"},
-            {"valeur": 2, "label": "Entreprise connue dans son secteur, présence médiatique limitée"},
-            {"valeur": 3, "label": "Acteur sectoriel majeur, exposition médiatique régulière"},
-            {"valeur": 4, "label": "Entreprise très médiatisée, cotée en bourse, ou symbole sectoriel"}
+            {"valeur": 1, "label": "PME discrète"},
+            {"valeur": 2, "label": "Connue dans le secteur d'activité, pas dans les médias grand public"},
+            {"valeur": 3, "label": "Acteur sectoriel majeur, on parle de nous régulièrement"},
+            {"valeur": 4, "label": "Très médiatisée, cotée en bourse ou symbole d'un secteur"}
           ]
         },
         {
           "id": "val_conformite",
-          "texte": "L'entreprise est-elle soumise à des obligations réglementaires strictes ?",
-          "aide": "RGPD, NIS2, PCI-DSS, secteur régulé (santé, finance, énergie, défense).",
+          "texte": "L'entreprise est-elle soumise à des contraintes réglementaires strictes ?",
+          "aide": "RGPD, NIS2, PCI-DSS... Une violation entraînerait quelles conséquences légales ou financières ?",
           "axe_poids": {"vol_donnees": 0.6, "sabotage": 0.3, "reputation": 0.8},
           "options": [
-            {"valeur": 1, "label": "Aucune obligation sectorielle spécifique au-delà du RGPD standard"},
-            {"valeur": 2, "label": "RGPD avec données sensibles (RH, clients), quelques obligations"},
-            {"valeur": 3, "label": "Secteur régulé (NIS2, PCI-DSS) ou données de santé"},
-            {"valeur": 4, "label": "Opérateur d'importance vitale (OIV), secteur critique, données hautement réglementées"}
+            {"valeur": 1, "label": "Uniquement le RGPD de base"},
+            {"valeur": 2, "label": "Traitement de données sensibles (RH, clients) - qelques obligations en plus"},
+            {"valeur": 3, "label": "Secteur régulé : NIS2, PCI-DSS, données de santé..."},
+            {"valeur": 4, "label": "OIV ou secteur ultra-critique - les obligations sont très lourdes"}
           ]
         },
         {
           "id": "val_exposition_publique",
-          "texte": "Y a-t-il des antécédents d'incidents ou une exposition publique récente ?",
-          "aide": "Fuites de données passées, conflits sociaux médiatisés, polémiques publiques.",
+          "texte": "L'entreprise a-t-elle déjà eu des incidents ou des polémiques publiques ?",
+          "aide": "Fuite de données passée, conflit social médiatisé, bad buzz... Ça attire les opportunistes.",
           "axe_poids": {"vol_donnees": 0.3, "sabotage": 0.2, "reputation": 1.0},
           "options": [
-            {"valeur": 1, "label": "Aucun antécédent, image publique neutre"},
-            {"valeur": 2, "label": "Incident mineur passé, peu médiatisé"},
-            {"valeur": 3, "label": "Incident significatif passé ou polémique en cours"},
-            {"valeur": 4, "label": "Entreprise activement ciblée ou en conflit public récent"}
+            {"valeur": 1, "label": "Non aucun antécédent"},
+            {"valeur": 2, "label": "Un incident mineur dans le passé"},
+            {"valeur": 3, "label": "Un incident notable ou une polémique récente"},
+            {"valeur": 4, "label": "On est activement ciblé ou en plein conflit public en ce moment"}
           ]
         }
       ]
@@ -149,50 +147,50 @@
     {
       "id": "C",
       "titre": "Contexte adversarial",
-      "description": "Multiplicateur — niveau de menace sectorielle, géopolitique et historique CTI",
+      "description": "Est-ce que les attaquants ont une raison de s'intéresser à nous en ce moment ?",
       "questions": [
         {
           "id": "ctx_secteur",
-          "texte": "Dans quel secteur opère l'entreprise ?",
-          "aide": "Certains secteurs sont systématiquement ciblés : énergie, santé, finance, défense, tech.",
+          "texte": "Dans quel secteur on est ?",
+          "aide": "Certains secteurs sont des cibles. Énergie, santé, finance, défense sont en première ligne.",
           "options": [
-            {"valeur": 1, "label": "Secteur peu ciblé : commerce de détail, services locaux, artisanat"},
-            {"valeur": 2, "label": "Secteur modérément exposé : industrie classique, services B2B"},
-            {"valeur": 3, "label": "Secteur fréquemment ciblé : tech, logistique, assurance, médias"},
-            {"valeur": 4, "label": "Secteur critique très ciblé : énergie, santé, finance, défense, télécoms"}
+            {"valeur": 1, "label": "Commerce local, artisanat, services de proximité"},
+            {"valeur": 2, "label": "Industrie classique ou services B2B - exposition modérée"},
+            {"valeur": 3, "label": "Tech, logistique, assurance, médias"},
+            {"valeur": 4, "label": "Énergie, santé, finance, défense, télécoms - cible prioritaire"}
           ]
         },
         {
           "id": "ctx_geopolitique",
-          "texte": "L'entreprise opère-t-elle dans des zones géopolitiquement sensibles ?",
-          "aide": "Présence dans des pays sous sanctions, projets avec États étrangers, exposition internationale.",
+          "texte": "Est-ce qu'on opère dans des zones ou contextes géopolitiquement sensibles ?",
+          "aide": "Présence dans des pays sous tensions, contrats avec des États étrangers, activité internationale exposée.",
           "options": [
-            {"valeur": 1, "label": "Activité 100% nationale, aucune exposition internationale sensible"},
-            {"valeur": 2, "label": "Exportations ou filiales dans des pays stables"},
-            {"valeur": 3, "label": "Présence dans des zones de tension ou projets avec États étrangers sensibles"},
-            {"valeur": 4, "label": "Activité directement liée à des enjeux géopolitiques ou sous tensions diplomatiques"}
+            {"valeur": 1, "label": "Activité 100% française, aucune exposition internationale"},
+            {"valeur": 2, "label": "Exportation ou filiales dans des pays \"stables\""},
+            {"valeur": 3, "label": "Présence zones de tension ou lien avec des pays \"instables\""},
+            {"valeur": 4, "label": "Activité lié à des enjeux géopolitiques"}
           ]
         },
         {
           "id": "ctx_historique_incidents",
-          "texte": "Le secteur ou l'entreprise a-t-il été ciblé récemment par des acteurs malveillants ?",
-          "aide": "Incidents documentés dans le secteur, alertes ANSSI, campagnes ransomware récentes.",
+          "texte": "Notre secteur ou nous-mêmes avons-nous été ciblés récemment ?",
+          "aide": "Alertes ANSSI, campagnes ransomware dans notre secteur, ou attaque directe contre nous.",
           "options": [
-            {"valeur": 1, "label": "Aucun incident sectoriel documenté récemment"},
-            {"valeur": 2, "label": "Incidents isolés dans le secteur, pas de campagne ciblée"},
-            {"valeur": 3, "label": "Campagnes actives documentées dans le secteur (ANSSI, CERT)"},
-            {"valeur": 4, "label": "Ciblage direct documenté ou alerte nominative reçue"}
+            {"valeur": 1, "label": "Non, rien de documenté récemment"},
+            {"valeur": 2, "label": "Quelques incidents dans le secteur, mais rien de ciblé"},
+            {"valeur": 3, "label": "Des campagnes actives touchent notre secteur en ce moment"},
+            {"valeur": 4, "label": "On a reçu une alerte nominative ou connaissance d'un intérêt particulier de la part de cyberattaquant"}
           ]
         },
         {
           "id": "ctx_capacites_adversaires",
-          "texte": "Quel type d'adversaire est susceptible de cibler l'entreprise ?",
-          "aide": "Script kiddies, cybercriminels, groupes ransomware, concurrents, APT étatiques.",
+          "texte": "Quel type d'attaquant pourrait s'en prendre à nous ?",
+          "aide": "Script kiddies qui scannent internet au hasard, ou groupes organisés qui nous cibleraient spécifiquement ?",
           "options": [
-            {"valeur": 1, "label": "Opportunistes uniquement — scan automatisé, aucun ciblage intentionnel"},
-            {"valeur": 2, "label": "Cybercriminels opportunistes — phishing générique, ransomware de masse"},
-            {"valeur": 3, "label": "Groupes ransomware ciblés (LockBit, Cl0p) ou espionnage concurrentiel"},
-            {"valeur": 4, "label": "APT étatiques (espionnage industriel) ou groupe ransomware Tier-1 ciblé"}
+            {"valeur": 1, "label": "Des opportunistes - on serait victime d'un scan automatisé, pas d'un ciblage"},
+            {"valeur": 2, "label": "Des cybercriminels classiques - phishing, ransomware"},
+            {"valeur": 3, "label": "Des groupes ransomware organisés ou des concurrents pour espionnage"},
+            {"valeur": 4, "label": "Des APT étatiques ou des groupes ransomware qui nous cibleraient directement"}
           ]
         }
       ]
@@ -201,72 +199,72 @@
     {
       "id": "D",
       "titre": "Maturité de la réponse",
-      "description": "Réducteur de risque — inspiré ISO 27005 : mesures en place qui abaissent le risque résiduel",
+      "description": "Défense mise en place ? (réduit le risque résiduel)",
       "questions": [
         {
           "id": "mat_gouvernance",
-          "texte": "L'entreprise dispose-t-elle d'une politique de sécurité formalisée et appliquée ?",
-          "aide": "PSSI, référentiel ISO 27001, désignation d'un RSSI, revues régulières. Correspond au domaine A.5 ISO 27001.",
+          "texte": "Politique de sécurité en place ?",
+          "aide": "PSSI écrite et appliquée, quelqu'un de désigné pour la sécu, revues régulières..",
           "options": [
-            {"valeur": 1, "label": "Aucune politique de sécurité, pas de responsable désigné"},
-            {"valeur": 2, "label": "Quelques règles informelles, pas de PSSI formalisée"},
-            {"valeur": 3, "label": "PSSI formalisée et diffusée, RSSI ou référent sécurité identifié"},
-            {"valeur": 4, "label": "PSSI appliquée et auditée, SMSI certifié ISO 27001 ou en cours"}
+            {"valeur": 1, "label": "Rien - pas de politique, pas de responsable désigné"},
+            {"valeur": 2, "label": "Quelques règles non écrites, mais rien de formalisé"},
+            {"valeur": 3, "label": "Une PSSI existe et connue des équipes, un RSSI ou référent présent"},
+            {"valeur": 4, "label": "PSSI appliquée, auditée, ISO 27001 obtenu / en cours"}
           ]
         },
         {
           "id": "mat_controle_acces",
-          "texte": "Quel est le niveau de contrôle des accès aux systèmes et données sensibles ?",
-          "aide": "MFA, principe du moindre privilège, revues de droits, gestion des comptes privilégiés (PAM). Correspond au domaine A.8 ISO 27001.",
+          "texte": "Controle des accès sensibles ?",
+          "aide": "MFA partout, principe du moindre privilège, revues de droits.",
           "options": [
-            {"valeur": 1, "label": "Pas de MFA, droits non segmentés, comptes partagés courants"},
-            {"valeur": 2, "label": "MFA sur quelques services, droits partiellement segmentés"},
-            {"valeur": 3, "label": "MFA généralisé, moindre privilège appliqué, revues de droits périodiques"},
-            {"valeur": 4, "label": "PAM déployé, zero-trust en cours, revues automatisées, logs centralisés"}
+            {"valeur": 1, "label": "Pas de MFA, pas de segmentation de droits, partages de compte"},
+            {"valeur": 2, "label": "MFA sur quelques outils, segmentation partielle"},
+            {"valeur": 3, "label": "MFA généralisé, moindre privilège appliqué, revues de droits régulières"},
+            {"valeur": 4, "label": "PAM en place, zero-trust en cours, logs centralisés et revues automatisées"}
           ]
         },
         {
           "id": "mat_detection",
-          "texte": "L'entreprise dispose-t-elle de capacités de détection et de supervision ?",
-          "aide": "EDR, SIEM, SOC, supervision des logs. Correspond au domaine A.8.16 et A.8.17 ISO 27001:2022.",
+          "texte": "Supervision en temps réel ?",
+          "aide": "EDR, SIEM, SOC... Quelqu'un surveille les alertes ?",
           "options": [
-            {"valeur": 1, "label": "Aucune supervision, pas d'antivirus centralisé"},
-            {"valeur": 2, "label": "Antivirus centralisé, logs système non supervisés"},
-            {"valeur": 3, "label": "EDR déployé, logs collectés, alertes traitées par une équipe interne"},
-            {"valeur": 4, "label": "SIEM actif, SOC interne ou MDR, règles de détection maintenues à jour"}
+            {"valeur": 1, "label": "Non - pas de supervision, même pas d'antivirus centralisé"},
+            {"valeur": 2, "label": "Aantivirus centralisé, pas de surveillance des logs"},
+            {"valeur": 3, "label": "EDR déployé, des logs sont collectés et une équipe traite les alertes"},
+            {"valeur": 4, "label": "SIEM actif avec un SOC ou un MDR, les règles de détection sont à jours"}
           ]
         },
         {
           "id": "mat_sauvegarde",
-          "texte": "Les sauvegardes sont-elles fiables et testées régulièrement ?",
-          "aide": "Règle 3-2-1, isolation des sauvegardes, tests de restauration. Correspond au domaine A.8.13 ISO 27001:2022.",
+          "texte": "Les sauvegardes exploitables en cas de ransomware ?",
+          "aide": "Règle 3-2-1, sauvegardes isolées ou immuables, tests de restauration réels.",
           "options": [
-            {"valeur": 1, "label": "Pas de sauvegarde systématique ou sauvegardes non testées"},
-            {"valeur": 2, "label": "Sauvegardes existantes mais non isolées du réseau principal"},
-            {"valeur": 3, "label": "Sauvegardes isolées (offline ou immuables), tests occasionnels"},
-            {"valeur": 4, "label": "Règle 3-2-1 appliquée, sauvegardes immuables, tests de restauration réguliers documentés"}
+            {"valeur": 1, "label": "Pas de sauvegarde sérieuse, restauration jamais testé"},
+            {"valeur": 2, "label": "Sauvegardes mais sur le même réseau - accessibles au ransomware"},
+            {"valeur": 3, "label": "Sauvegardes isolées ou immuables,restauration testée"},
+            {"valeur": 4, "label": "Règle 3-2-1 respectée, immuable, restauration testée régulièrement et documentée"}
           ]
         },
         {
           "id": "mat_sensibilisation",
-          "texte": "Les collaborateurs sont-ils sensibilisés aux risques cyber ?",
-          "aide": "Formations phishing, sensibilisation RSSI, procédures de signalement d'incident. Correspond au domaine A.6.3 ISO 27001:2022.",
+          "texte": "Maturité cyber des employés ?",
+          "aide": "Phishing simulé, formations, procédure de signalement connue de tous. ",
           "options": [
-            {"valeur": 1, "label": "Aucune sensibilisation, pas de procédure de signalement"},
-            {"valeur": 2, "label": "Sensibilisation ponctuelle lors de l'onboarding uniquement"},
-            {"valeur": 3, "label": "Campagnes phishing simulées, formations annuelles, procédure de signalement connue"},
-            {"valeur": 4, "label": "Programme de sensibilisation continu, métriques suivies, culture sécurité mesurée"}
+            {"valeur": 1, "label": "Non"},
+            {"valeur": 2, "label": "Une sensibilisation a l'entrée"},
+            {"valeur": 3, "label": "Campagnes phishing simulées, formations annuelles, procédure de remontée d'inciendent"},
+            {"valeur": 4, "label": "Formation continu, métriques suivies, culture sécurité forte"}
           ]
         },
         {
           "id": "mat_gestion_incidents",
-          "texte": "L'entreprise dispose-t-elle d'un plan de réponse aux incidents ?",
-          "aide": "PRI, PCA/PRA, exercices de crise, contacts CERT/ANSSI identifiés. Correspond au domaine A.5.26 ISO 27001:2022.",
+          "texte": "Processus de réponse à incident ?",
+          "aide": "PRI écrit et testé, PCA/PRA, contacts CERT/ANSSI dans le répertoire. ",
           "options": [
-            {"valeur": 1, "label": "Aucun plan, pas de procédure en cas d'incident"},
-            {"valeur": 2, "label": "Contacts et escalades identifiés, pas de plan formalisé"},
-            {"valeur": 3, "label": "PRI formalisé, contacts CERT/ANSSI connus, exercice réalisé au moins une fois"},
-            {"valeur": 4, "label": "PRI testé régulièrement, PCA/PRA validé, retours d'expérience intégrés"}
+            {"valeur": 1, "label": "Non - pas de processus connus"},
+            {"valeur": 2, "label": "Responsable identifié mais pas de processus décrit"},
+            {"valeur": 3, "label": "Un PRI existe, les contacts légaux (cert/anssi) connus"},
+            {"valeur": 4, "label": "PRI testé régulièrement, PCA/PRA validé, exercices déjà joués avec retex"}
           ]
         }
       ]
