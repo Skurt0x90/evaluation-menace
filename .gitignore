@@ -1,0 +1,51 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.Python
+.tmp
+
+# Environnements virtuels
+venv/
+.venv/
+env/
+.env
+
+# Distribution / packaging
+*.egg-info/
+dist/
+build/
+
+# PyInstaller
+*.spec.bak
+dist/
+build/
+
+# Rapports PDF générés
+reports/
+
+# Clés et secrets
+.env
+*.key
+*.secret
+config/secrets.json
+
+# Logs
+*.log
+logs/
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Données d'analyse (ne pas versionner les analyses réelles)
+analyses/
+exports/
