@@ -66,7 +66,7 @@ Le serveur bind sur `127.0.0.1` uniquement — inaccessible depuis le réseau.
 ---
 
 
-## Entreprise (`threat_enterprise/`)
+## Périmètre analysé
 
 | Axe | Ce qu'il mesure |
 |---|---|
