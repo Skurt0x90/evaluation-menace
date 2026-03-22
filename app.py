@@ -107,18 +107,6 @@ def telecharger_pdf():
                      download_name=f"rapport_{nom.replace(' ', '_')[:40]}.pdf")
 
 
-@app.route("/analyses/<ex_id>")
-def charger_exemple(ex_id):
-    # pour chaque fichier dans reports on get le report et on l'affiche
-    exemples = load("examples.json").get("exemples", [])
-    ex = next((e for e in exemples if e["id"] == ex_id), None)
-    if not ex:
-        return redirect(url_for("index"))
-    session["nom"]      = ex["nom"]
-    session["reponses"] = ex["reponses"]
-    return redirect(url_for("resultats"))
-
-
 if __name__ == "__main__":
     print("=" * 50)
     print("  THREAT ASSESSMENT — ENTREPRISE")
