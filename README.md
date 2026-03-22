@@ -41,8 +41,7 @@ threat-assessment/
 │   ├── questions.json          # Blocs A/B/C, textes, options, poids par axe
 │   ├── weights.json            # Poids surface et contexte
 │   ├── scoring.json            # Seuils niveaux, plages multiplicateurs, agrégation
-│   ├── knowledge_base.json     # Acteurs CTI, TTPs, incidents de référence
-│   └── examples.json          # Exemples préconfigurés
+│   └── knowledge_base.json     # Acteurs CTI, TTPs, incidents de référence
 └── reports/                    # Rapports PDF générés (créé automatiquement)
 ```
 
@@ -77,8 +76,6 @@ Le serveur bind sur `127.0.0.1` uniquement — inaccessible depuis le réseau.
 Questions orientées SI d'entreprise : criticité métier, conformité NIS2/PCI-DSS/OIV, interconnexions supply chain, exposition concurrentielle, profil C-level.
 
 Acteurs CTI : LockBit, Cl0p, BlackCat, APT10, APT28, Sandworm, KillNet.
-
-**Exemples inclus :** PME de services locaux → `FAIBLE` / ESN fournisseur IT secteurs critiques → `CRITIQUE`
 
 ---
 

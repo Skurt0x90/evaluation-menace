@@ -3,41 +3,26 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Vektor - Évaluation de la menace</title>
+<title>Vektor — Évaluation de la menace</title>
 <link rel="stylesheet" href="/static/style.min.css">
 </head>
 <body>
-<div style="min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px">
-<div class="card" style="width:520px">
+<div class="page-center">
+<div class="surface card-narrow">
 
-  <div class="label" style="margin-bottom:16px">Vektor · Évaluation menace cyber</div>
-  <h1 style="font-size:22px;font-weight:normal;margin-bottom:6px">Sujet de l'analyse:</h1>
-  <p style="font-size:13px;color:var(--muted);margin-bottom:22px;font-style:italic;line-height:1.6">
-    15 questions, ~6 minutes. Le résultat tient compte de  l'exposition réelle et des mesures de sécurité adoptées.
+  <p class="label-sm" style="">Vektor · Évaluation menace cyber</p>
+  <h1 class="md-title-large">Sujet de l'analyse</h1>
+  <p class="md-body-medium" style="color:var(--md-on-surface-var);margin:8px 0 22px;font-style:italic;line-height:1.6">
+    15 questions, ~6 minutes. Le résultat tient compte de l'exposition réelle
+    et des mesures de sécurité adoptées.
   </p>
 
   <form action="/questionnaire" method="get">
     <label class="field-label">Entreprise ou périmètre</label>
-    <input type="text" name="nom" placeholder="ex : Groupe Alpha — SI interne"
-           required style="margin-bottom:14px">
-    <button type="submit" class="btn btn-primary btn-block">Démarrer →</button>
+    <input class="field-input" type="text" name="nom"
+           placeholder="ex : Nom SI / entreprise" required>
+    <button type="submit" class="btn btn-filled btn-block">Démarrer →</button>
   </form>
-
-  {% if exemples %}
-  <hr class="divider">
-  <div class="label" style="margin-bottom:8px">Anciens rapports</div>
-  <div class="example-list">
-    {% for ex in exemples %}
-    <a href="/exemple/{{ ex.id }}" class="example-btn">
-      <span style="color:var(--accent);font-family:var(--mono)">▸</span>
-      <div>
-        <div class="example-name">{{ ex.nom }}</div>
-        <div class="example-desc">{{ ex.description }}</div>
-      </div>
-    </a>
-    {% endfor %}
-  </div>
-  {% endif %}
 
 </div>
 </div>

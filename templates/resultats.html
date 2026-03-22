@@ -12,11 +12,11 @@
   <!-- En-tête -->
   <div class="page-header">
     <div>
-      <div class="label">Rapport d'analyse — Méthode S/E/I</div>
+      <p class="label-sm">Rapport d'analyse — Méthode S/E/I</p>
       <h1>{{ nom }}</h1>
-      <div class="meta">{{ date }}</div>
+      <p class="meta">{{ date }}</p>
     </div>
-    <a href="/telecharger_pdf" class="btn btn-primary">⬇ PDF</a>
+    <a href="/telecharger_pdf" class="btn btn-filled">⬇ PDF</a>
   </div>
 
   <!-- Formule -->
@@ -27,7 +27,7 @@
     </div>
     <span class="f-op">×</span>
     <div class="f-block">
-      <div class="f-val" style="color:var(--accent)">valeur axe</div>
+      <div class="f-val" style="color:var(--md-primary)">valeur axe</div>
       <div class="f-lbl">ci-dessous</div>
     </div>
     <span class="f-op">×</span>
@@ -38,7 +38,7 @@
     <span class="f-op">×</span>
     <div class="f-block">
       <div class="f-val" style="color:#059669">{{ "%.2f"|format(scores._reducteur_maturite) }}</div>
-      <div class="f-lbl">Maturité (D)</div>
+      <div class="f-lbl">Maturité</div>
     </div>
     <span class="f-op">=</span>
     <div class="f-block">
@@ -47,25 +47,25 @@
     </div>
   </div>
 
-  <!-- Niveau global brut vs résiduel -->
+  <!-- Scores global -->
   {% set n = scores.global.niveau %}
   {% set nb = scores.global.niveau_brut %}
-  <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:20px">
-    <div class="global-box" style="background:var(--lv{{ nb }}-bg);border-color:var(--lv{{ nb }})">
+  <div class="scores-grid">
+    <div class="global-box bg{{ nb }}">
       <div>
-        <div class="global-label">Menace brute</div>
-        <div class="global-value c{{ nb }}">{{ scores.global.label_brut }}</div>
-        <div style="font-size:11px;color:var(--muted);margin-top:3px">avant mesures de sécurité</div>
+        <p class="global-label">Menace brute</p>
+        <p class="global-value c{{ nb }}">{{ scores.global.label_brut }}</p>
+        <p class="global-sub">avant mesures de sécurité</p>
       </div>
-      <div class="global-num c{{ nb }}">{{ nb }}/4</div>
+      <span class="global-num c{{ nb }}">{{ nb }}/4</span>
     </div>
     <div class="global-box bg{{ n }}">
       <div>
-        <div class="global-label">Risque résiduel</div>
-        <div class="global-value c{{ n }}">{{ scores.global.label }}</div>
-        <div style="font-size:11px;color:var(--muted);margin-top:3px">après mesures — niveau réel</div>
+        <p class="global-label">Risque résiduel</p>
+        <p class="global-value c{{ n }}">{{ scores.global.label }}</p>
+        <p class="global-sub">après mesures — niveau réel</p>
       </div>
-      <div class="global-num c{{ n }}">{{ n }}/4</div>
+      <span class="global-num c{{ n }}">{{ n }}/4</span>
     </div>
   </div>
 
@@ -75,18 +75,18 @@
     {% set s = scores[axe_id] %}
     {% set nv = s.niveau %}
     {% set nb = s.niveau_brut %}
-    <div class="axe-card c{{ nv }}" style="border-top-color:currentColor">
-      <div class="axe-name">{{ info.emoji }} {{ info.label }}</div>
-      <div style="display:flex;align-items:baseline;gap:8px;margin-bottom:2px">
-        <div class="axe-score c{{ nv }}">{{ s.score }}</div>
+    <div class="axe-card c{{ nv }}">
+      <p class="axe-name">{{ info.emoji }} {{ info.label }}</p>
+      <div class="axe-scores">
+        <span class="axe-score c{{ nv }}">{{ s.score }}</span>
         {% if nb != nv %}
-        <div style="font-size:11px;color:var(--muted);text-decoration:line-through">{{ s.score_brut }}</div>
+        <span class="axe-prev">{{ s.score_brut }}</span>
         {% endif %}
       </div>
-      <div class="axe-label c{{ nv }}">{{ s.label }}
-        {% if nb != nv %}<span style="color:var(--muted);font-weight:normal"> ← {{ s.label_brut }}</span>{% endif %}
-      </div>
-      <div class="axe-decomp" style="margin-top:6px">brut {{ s.score_brut }} × {{ "%.2f"|format(scores._reducteur_maturite) }} = {{ s.score }}</div>
+      <p class="axe-label c{{ nv }}">{{ s.label }}
+        {% if nb != nv %}<span class="axe-label-prev"> ← {{ s.label_brut }}</span>{% endif %}
+      </p>
+      <p class="axe-decomp">brut {{ s.score_brut }} × {{ "%.2f"|format(scores._reducteur_maturite) }} = {{ s.score }}</p>
       <div class="axe-bar-bg">
         <div class="axe-bar-fill c{{ nv }}" style="width:{{ (((s.score-1)/3)*100)|round }}%;background:currentColor"></div>
       </div>
@@ -94,9 +94,9 @@
     {% endfor %}
   </div>
 
-  <!-- Acteurs pertinents -->
+  <!-- Acteurs -->
   {% if acteurs %}
-  <div class="label" style="margin-bottom:10px;margin-top:24px">Acteurs de la menace pertinents</div>
+  <p class="label-sm section-label">Acteurs de la menace pertinents</p>
   <div class="acteur-table-hdr">
     <span>Acteur</span><span>Origine / Type</span><span>Finalités</span><span>TTPs principaux</span>
   </div>
@@ -110,8 +110,8 @@
   {% endfor %}
   {% endif %}
 
-  <!-- Détails réponses -->
-  <div class="label" style="margin-bottom:10px;margin-top:24px">Détail des réponses</div>
+  <!-- Détails -->
+  <p class="label-sm section-label">Détail des réponses</p>
 
   {% set cur = namespace(bloc="") %}
   {% for d in details %}
@@ -128,8 +128,8 @@
     <div class="detail-row">
       <div class="lv-badge c{{ d.valeur }}">{{ d.valeur }}</div>
       <div>
-        <div class="detail-q">{{ d.texte }}</div>
-        <div class="detail-a">{{ d.label }}</div>
+        <p class="detail-q">{{ d.texte }}</p>
+        <p class="detail-a">{{ d.label }}</p>
       </div>
     </div>
   {% endfor %}
@@ -137,7 +137,7 @@
 
   <!-- Limites -->
   <div class="limites">
-    <div class="limites-title">Limites de l'analyse</div>
+    <p class="limites-title">Limites de l'analyse</p>
     <ul>
       <li>Appréciation de vraisemblance uniquement — ne couvre pas l'impact financier ni le risque résiduel.</li>
       <li>Le multiplicateur surface suppose que les réponses reflètent l'exposition réelle du SI.</li>
@@ -148,9 +148,9 @@
 
   <!-- Actions -->
   <div class="actions">
-    <a href="/" class="btn btn-outline">← Nouvelle analyse</a>
-    <a href="/questionnaire?nom={{ nom }}" class="btn btn-ghost">↩ Modifier</a>
-    <a href="/telecharger_pdf" class="btn btn-primary">⬇ Rapport PDF</a>
+    <a href="/" class="btn btn-outlined">← Nouvelle analyse</a>
+    <a href="/questionnaire?nom={{ nom }}" class="btn btn-text">↩ Modifier</a>
+    <a href="/telecharger_pdf" class="btn btn-filled">⬇ Rapport PDF</a>
   </div>
 
 </div>

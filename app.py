@@ -39,11 +39,7 @@ os.makedirs(REPORTS_DIR, exist_ok=True)
 
 @app.route("/")
 def index():
-    try:
-        exemples = load("examples.json").get("exemples", [])
-    except (FileNotFoundError, KeyError, ValueError):
-        exemples = []
-    return render_template("index.html", exemples=exemples)
+    return render_template("index.html")
 
 @app.route("/questionnaire", methods=["GET", "POST"])
 def questionnaire():

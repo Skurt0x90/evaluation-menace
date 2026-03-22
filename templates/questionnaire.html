@@ -11,19 +11,21 @@
 
   <div class="page-header">
     <div>
-      <div class="label">Questionnaire — Méthode S/E/I Entreprise</div>
+      <p class="label-sm">Questionnaire — Méthode S/E/I Entreprise</p>
       <h1>Appréciation de la Menace Cyber</h1>
-      <div class="meta">{{ nom }}</div>
+      <p class="meta">{{ nom }}</p>
     </div>
   </div>
 
-  <div class="progress-wrap"><div class="progress-bar" id="progress"></div></div>
+  <div class="progress-wrap">
+    <div class="progress-bar" id="progress"></div>
+  </div>
 
   <form action="/questionnaire" method="post" id="form">
     <input type="hidden" name="nom_deploiement" value="{{ nom }}">
 
     {% for bloc in blocs %}
-    <div class="bloc bloc-{{ bloc.id }}">
+    <div class="bloc">
       <div class="bloc-header">
         <span class="bloc-id">{{ bloc.id }}</span>
         <span class="bloc-title">{{ bloc.titre }}</span>
@@ -32,8 +34,8 @@
 
       {% for q in bloc.questions %}
       <div class="question-card" id="card_{{ q.id }}">
-        <div class="q-text">{{ q.texte }}</div>
-        <div class="q-aide">{{ q.aide }}</div>
+        <p class="q-text">{{ q.texte }}</p>
+        <p class="q-aide">{{ q.aide }}</p>
         <div class="options">
           {% for opt in q.options %}
           <label class="option-label" id="opt_{{ q.id }}_{{ opt.valeur }}">
@@ -49,10 +51,9 @@
     </div>
     {% endfor %}
 
-    <div style="height:72px"></div>
     <div class="submit-bar">
-      <a href="/" class="btn btn-ghost">← Retour</a>
-      <button type="submit" class="btn btn-primary">Calculer →</button>
+      <a href="/" class="btn btn-text">← Retour</a>
+      <button type="submit" class="btn btn-filled">Calculer →</button>
     </div>
   </form>
 
@@ -71,8 +72,8 @@ function updateProgress() {
 }
 
 document.getElementById('form').addEventListener('submit', function(e) {
-  const names     = [...new Set([...document.querySelectorAll('input[type=radio]')].map(r => r.name))];
-  const missing   = names.filter(n => !document.querySelector('input[name="' + n + '"]:checked'));
+  const names   = [...new Set([...document.querySelectorAll('input[type=radio]')].map(r => r.name))];
+  const missing = names.filter(n => !document.querySelector('input[name="' + n + '"]:checked'));
   if (missing.length) {
     e.preventDefault();
     alert(missing.length + ' question(s) sans réponse.');
