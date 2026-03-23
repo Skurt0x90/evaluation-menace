@@ -1,9 +1,9 @@
 from models.config import load
 
 def acteurs_pertinents(reponses, scores):
-    kb      = load("knowledge_base.json")
+    knowledge_base = load("knowledge_base.json")
     scoring = load("scoring.json")
-    axes    = {k: v for k, v in scoring["axes"].items() if not k.startswith("_")}
+    axes = {k: v for k, v in scoring["axes"].items() if not k.startswith("_")}
 
     # liste les acteurs si l'axe (sabotage, vol de données, espionnage) > 2 sinon pas pertinent
     axes_exposes = [axe for axe in axes if scores[axe]["niveau"] >= 2]
@@ -15,13 +15,17 @@ def acteurs_pertinents(reponses, scores):
     tier_max = 1 if cap >= 4 else 2 if cap >= 3 else 2
 
     resultat = []
-    for code, a in kb.get("acteurs", {}).items():
+    for code, a in knowledge_base.get("acteurs", {}).items():
         if not isinstance(a, dict) or not a.get("actif", True):
             continue
         if a.get("tier", 3) > tier_max:
             continue
-        overlap = set(a.get("finalites", [])) & set(axes_exposes)
-        if overlap:
-            resultat.append({**a, "code": code, "finalites_matchees": list(overlap)})
+
+        goal_actor = set(a.get("finalites", []))
+        goal_match = goal_actor & set(axes_exposes)
+
+        if goal_match:
+            actor = {**a, "code": code, "finalites_matchees": list(goal_match)}
+            resultat.append(actor)
 
     return resultat[:4]

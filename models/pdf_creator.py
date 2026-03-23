@@ -87,7 +87,7 @@ def generer_pdf(nom, reponses, scores, acteurs, cfg_questions, cfg_scoring):
     story = []
 
     # En-tête
-    story.append(Paragraph("<b>APPRÉCIATION DE LA MENACE CYBER — {nom}</b>", s["title"]))
+    story.append(Paragraph(f"<b>APPRÉCIATION DE LA MENACE CYBER — {nom}</b>", s["title"]))
     story.append(Paragraph("",s["body"]))
     story.append(Paragraph(
         f"Analyse du {datetime.datetime.now().strftime('%d/%m/%Y %H:%M')}"
