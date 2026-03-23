@@ -32,17 +32,23 @@ Les niveaux de sortie : `FAIBLE` / `MODÉRÉ` / `ÉLEVÉ` / `CRITIQUE`
 threat-assessment/
 ├── app.py                      
 ├── static/
-│   └── style.css              
+│   └── style.min.css              
 ├── templates/
 │   ├── index.html
 │   ├── questionnaire.html
 │   └── resultats.html
 ├── config/                     # Tout ce qui est modifiable sans toucher au code
-│   ├── questions.json          # Blocs A/B/C, textes, options, poids par axe
+│   ├── questions.json          # Textes, options, poids par axe
 │   ├── weights.json            # Poids surface et contexte
 │   ├── scoring.json            # Seuils niveaux, plages multiplicateurs, agrégation
 │   └── knowledge_base.json     # Acteurs CTI, TTPs, incidents de référence
+├── models/                     
+│   ├── config.py
+│   ├── knowledge.py
+│   ├── pdf_creator.py
+│   └── scoring.py
 └── reports/                    # Rapports PDF générés (créé automatiquement)
+
 ```
 
 ---
@@ -60,8 +66,6 @@ python app.py
 
 Ouvre automatiquement `http://localhost:5000` dans le navigateur.
 
-Le serveur bind sur `127.0.0.1` uniquement — inaccessible depuis le réseau.
-
 ---
 
 
@@ -73,9 +77,9 @@ Le serveur bind sur `127.0.0.1` uniquement — inaccessible depuis le réseau.
 | ⚡ Sabotage | Ransomware, interruption de service, destruction de données |
 | 📡 Réputation | Leak, bad buzz orchestré, atteinte à l'image |
 
-Questions orientées SI d'entreprise : criticité métier, conformité NIS2/PCI-DSS/OIV, interconnexions supply chain, exposition concurrentielle, profil C-level.
+Questions orientées SI d'entreprise : criticité métier, conformité NIS2/PCI-DSS/OIV, interconnexions supply chain, exposition concurrentielle.
 
-Acteurs CTI : LockBit, Cl0p, BlackCat, APT10, APT28, Sandworm, KillNet.
+Acteurs CTI : a remplir veille sectorielle pour un rapport plus exhaustif.
 
 ---
 
@@ -131,11 +135,11 @@ Tout se passe dans `config/`. Aucun redémarrage requis — les fichiers sont re
 
 | ✓ Couvert | ✗ Hors périmètre |
 |---|---|
-| Vraisemblance de la menace par finalité adversariale | Analyse d'impact opérationnel ou financier |
-| Différenciation fine entre périmètres selon leur exposition réelle | Risque résiduel post-mesures de sécurité |
-| Contexte géopolitique comme nuance (pas comme source) | Homologation RGS / IGI 1300 |
-| Identification des acteurs CTI pertinents | Substitution à un flux CTI gouvernemental (ANSSI/SGDSN) |
-| Export PDF reproductible et archivable | Audit de sécurité ou test d'intrusion |
+| Évaluer la crédibilité des menaces selon les objectifs des adversaires | Analyse d'impact opérationnel ou financier |
+| Distinguer les périmètres en fonction de leur exposition réelle | Calculer le risque restant après application des mesures de sécurité |
+| Prendre en compte le contexte géopolitique/concurentiel comme élément de nuance | Homologation RGS / IGI 1300 |
+| Identification des acteurs CTI pertinents | Ne remplace pas un flux CTI |
+| Export PDF reproductible et archivable | Ne remplace pas un audit de sécurité ou test d'intrusion |
 
 ---
 

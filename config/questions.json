@@ -90,7 +90,7 @@
             {"valeur": 1, "label": "Non - des employés standard sans accès particuliers"},
             {"valeur": 2, "label": "Quelques managers avec des accès un peu plus larges"},
             {"valeur": 3, "label": "Des admins IT ou des membres de la direction avec accès aux systèmes critiques"},
-            {"valeur": 4, "label": "C-level, DSI, comptes avec accès à tout"}
+            {"valeur": 4, "label": "CTO/CSO/CIO..., DSI, comptes avec accès à tout"}
           ]
         },
         {
